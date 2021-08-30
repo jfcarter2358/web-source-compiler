@@ -1,7 +1,6 @@
-.PHONY: pypi-build pypi-test pypi-upload
+.PHONY: pypi-build pypi-test pypi-upload clean
 
-pypi-build:
-	rm -rf dist/*
+pypi-build: clean
 	python setup.py sdist bdist_wheel
 	twine check dist/*
 
@@ -10,3 +9,7 @@ pypi-test:
 
 pypi-upload:
 	twine upload dist/*
+
+clean:
+	rm -rf build
+	rm -rf dist
