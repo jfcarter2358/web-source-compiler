@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "web-source-compiler"
+version = "0.1.0"
+description = "A lightweight UI framework to get a Golang server up and running quickly"
+authors = ["John Carter <jfcarter2358@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+argparse = "^1.4.0"
+rich = "^13.7.0"
+dataclasses-json = "^0.6.3"
+
+
+[tool.poetry.group.dev.dependencies]
+studfile = "^0.1.2"
+black = "^23.12.1"
+mypy = "^1.8.0"
+pylint = "^3.0.3"
+pyyaml = "^6.0.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+wsc = 'web_source_compiler:main'

@@ -1,0 +1,45 @@
+sync-versions:
+
+sync-changelog:
+
+install:
+  help: Install development dependencies
+  cmd: |
+    pip install poetry
+    poetry install
+
+format:
+  help: Format Python code
+  cmd: |
+    black web-source-compiler
+    black scripts
+
+lint:
+  help: Lint Python code
+  cmd: |
+    pylint web-source-compiler/*
+
+static:
+  help: Static check Python code
+  cmd: |
+    mypy web-source-compiler
+
+test:
+  help: Test package and output coverage report
+  cmd: |
+    pytest --cov=web-source-compiler --cov-report=html --cov-fail-under=95 -W ignore::DeprecationWarning -vv
+
+build:
+  help: Build package
+  cmd: |
+    poetry build
+
+docs:
+  help: Generate Sphinx documentation
+  cmd: |
+    cd docs && make html
+
+publish:
+  help: Publish Python package to PyPI
+  cmd: |
+    poetry publish -u "__token__" -p "${{PYPI_PASSWORD}}"

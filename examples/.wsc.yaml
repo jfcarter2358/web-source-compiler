@@ -1,0 +1,6 @@
+dependencies:
+  jfcarter2358: /home/jfcarter2358/personal/code/jc_add-ui-scaffolding/web-source-compiler/examples/./.wsc-packages/jfcarter2358
+  local: .
+dist_dir: /home/jfcarter2358/personal/code/jc_add-ui-scaffolding/web-source-compiler/examples/dist
+project_dir: /home/jfcarter2358/personal/code/jc_add-ui-scaffolding/web-source-compiler/examples/.
+static_dir: /home/jfcarter2358/personal/code/jc_add-ui-scaffolding/web-source-compiler/examples/static
