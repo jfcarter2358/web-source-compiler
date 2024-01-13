@@ -433,6 +433,25 @@ pygments = ">=2.13.0,<3.0.0"
 jupyter = ["ipywidgets (>=7.5.1,<9)"]
 
 [[package]]
+name = "rich-click"
+version = "1.7.3"
+description = "Format click help output nicely with rich"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "rich-click-1.7.3.tar.gz", hash = "sha256:bced1594c497dc007ab49508ff198bb437c576d01291c13a61658999066481f4"},
+    {file = "rich_click-1.7.3-py3-none-any.whl", hash = "sha256:bc4163d4e2a3361e21c4d72d300eca6eb8896dfc978667923cb1d4937b8769a3"},
+]
+
+[package.dependencies]
+click = ">=7"
+rich = ">=10.7.0"
+typing-extensions = "*"
+
+[package.extras]
+dev = ["flake8", "flake8-docstrings", "mypy", "packaging", "pre-commit", "pytest", "pytest-cov", "types-setuptools"]
+
+[[package]]
 name = "studfile"
 version = "0.1.2"
 description = "A simplified tool for making easy-to-use build scripts"
@@ -498,4 +517,4 @@ typing-extensions = ">=3.7.4"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "77f3a067e5e8a01ab50da36178abafabb6269733ef9c93ac43083d9e84270b70"
+content-hash = "c01d3f1b5cfe84cb12719464af27024764198b1c8cb891af129cd8566d9bf548"

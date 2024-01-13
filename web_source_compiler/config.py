@@ -3,6 +3,8 @@ from dataclasses import dataclass
 import shutil
 import os
 import logging
+from dataclasses_json import dataclass_json
+import sys
 
 PACKAGES_DIR = ".wsc-packages"
 LOCAL_KEYWORD = "local"
@@ -12,29 +14,60 @@ PROJECT_DIR_KEYWORD = 'project_dir'
 DIST_DIR_KEYWORD = 'dist_dir'
 STATIC_DIR_KEYWORD = 'static_dir'
 
+def add_git_dependency(self, dep Dependency) -> None:
+    pass
+    
+def add_http_depdency(self, dep Dependency) -> None:
+    pass
+
+def add_file_dependency(dep Dependency) -> None:
+    pass
+
+PROTOCOLS = {
+    'git': add_git_dependency,
+    'http': add_http_depdency,
+    'file': add_file_dependency
+}
+
+@dataclass_json
+@dataclass
+class Dependency:
+    remote_path: str
+    username: str
+    password: str
+    install_path: str
+
+@dataclass_json
 @dataclass
 class Config:
     project_dir: str
     dist_dir: str
     static_dir: str
-    dependencies: dict[str, str]
+    dependencies: dict[str, Dependency]
 
-    def add_dependency(self, name: str, path: str, remote: str, username: str, password: str) -> None:
+        
+    def add_dependency(self, name: str, path: str, username: str, password: str) -> None:
         package_dir = f'{self.project_dir}/{PACKAGES_DIR}/{name}'
         os.makedirs(package_dir, exist_ok=True)
 
-        if remote != LOCAL_KEYWORD:
-            logging.debug('Grabbing remote repository...')
-            # do some git repo stuff here
-            pass
+        parts = path.split('::')
+        protocol = parts[0]
+        url: parts[1]
 
         if os.path.exists(package_dir):
             logging.debug(f'Removing existing package directory at {package_dir}')
             shutil.rmtree(package_dir)
         
+        if protocol in PROTOCOLS:
+            pass
+        else:
+            logging.error(f'Invalid remote protocol: {protocol}. Valid protcols are {", ".join(PROTOCOLS)}')
+            sys.exit(1)
         logging.debug(f'Copying package from {path} to {package_dir}...')
         shutil.copytree(path, package_dir)
         logging.debug('Done!')
+
+        dep = Dependency(path, username, password, package_dir)
 
         self.dependencies[name] = package_dir
 

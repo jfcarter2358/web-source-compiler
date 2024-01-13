@@ -1,7 +1,3 @@
-sync-versions:
-
-sync-changelog:
-
 install:
   help: Install development dependencies
   cmd: |

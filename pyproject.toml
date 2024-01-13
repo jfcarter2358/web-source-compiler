@@ -10,6 +10,7 @@ python = "^3.10"
 argparse = "^1.4.0"
 rich = "^13.7.0"
 dataclasses-json = "^0.6.3"
+rich-click = "^1.7.3"
 
 
 [tool.poetry.group.dev.dependencies]

@@ -1,10 +1,11 @@
-from web_source_compiler.config import Config, PACKAGES_DIR
+from web_source_compiler.config import Config, PACKAGES_DIR, PROTOCOLS
 from web_source_compiler.compiler import Compiler
 import argparse
 import logging
 from rich.logging import RichHandler
 import os
 import shutil
+import rich_click as click
 
 LOG_LEVELS = {
     "DEBUG": logging.DEBUG,
@@ -14,6 +15,26 @@ LOG_LEVELS = {
     "CRITICAL": logging.CRITICAL
 }
 
+# add_parser.add_argument('name', help='Name to store package as')
+# add_parser.add_argument('source', help='Source of WSC package, must be a URL (git or http protocols) or a local path (file protocl)')
+# add_parser.add_argument('protocol', help=f'Protocol to use to retrieve package. Valid protocols are {", ".join(PROTOCOLS)}. Defaults to git', choices=PROTOCOLS, default='git')
+# add_parser.add_argument('-u', '--username', help='Basic auth username for retrieval. Use env.<ENV VAR NAME> to pull value from an environment variable')
+# add_parser.add_argument('-p', '--password', help='Basic auth password for retrieval. Use env.<ENV VAR NAME> to pull value from an environment variable')
+# add_parser.add_argument(f'-l', '--log-level', choices=list(LOG_LEVELS.keys()), default="INFO", help=f'Log level to use, valid levels are {",".join(list(LOG_LEVELS.keys()))}. Defaults to INFO')
+
+
+@click.command()
+@click.option("name", help="Name to use for package")
+@click.option("source", help='Source of WSC package, must be a URL (git or http protocols) or a local path (file protocl)')
+@click.option("--protocol", help=f'Protocol to use to retrieve package. Valid protocols are {", ".join(PROTOCOLS)}. Defaults to git')
+@click.option("--username", help=f'Protocol to use to retrieve package. Valid protocols are {", ".join(PROTOCOLS)}. Defaults to git')
+@click.option("--password", help=f'Protocol to use to retrieve package. Valid protocols are {", ".join(PROTOCOLS)}. Defaults to git')
+@click.option("--log-level", help=f'Protocol to use to retrieve package. Valid protocols are {", ".join(PROTOCOLS)}. Defaults to git')
+
+def hello(count, name):
+    """Simple program that greets NAME for a total of COUNT times."""
+    for _ in range(count):
+        click.echo(f"Hello, {name}!")
 def do_add(args: argparse.Namespace) -> None:
     config = Config('', '', '', {})
     config.read_config()
@@ -64,10 +85,10 @@ def main() -> None:
     add_parser = subparsers.add_parser('add')
     add_parser.set_defaults(func=do_add)
     add_parser.add_argument('name', help='Name to store package as')
-    add_parser.add_argument('path', help='Path to WSC package')
-    add_parser.add_argument('-r', '--remote', help='Remote to pull package from, e.g. `git@github.com/<repo>', default='local')
-    add_parser.add_argument('-u', '--username', help='Username to use with remote if not using SSH key')
-    add_parser.add_argument('-p', '--password', help='Password to use with remote if not using SSH key')
+    add_parser.add_argument('source', help='Source of WSC package, must be a URL (git or http protocols) or a local path (file protocl)')
+    add_parser.add_argument('protocol', help=f'Protocol to use to retrieve package. Valid protocols are {", ".join(PROTOCOLS)}. Defaults to git', choices=PROTOCOLS, default='git')
+    add_parser.add_argument('-u', '--username', help='Basic auth username for retrieval. Use env.<ENV VAR NAME> to pull value from an environment variable')
+    add_parser.add_argument('-p', '--password', help='Basic auth password for retrieval. Use env.<ENV VAR NAME> to pull value from an environment variable')
     add_parser.add_argument(f'-l', '--log-level', choices=list(LOG_LEVELS.keys()), default="INFO", help=f'Log level to use, valid levels are {",".join(list(LOG_LEVELS.keys()))}. Defaults to INFO')
 
     clean_parser = subparsers.add_parser('clean')
